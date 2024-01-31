@@ -32,6 +32,7 @@ const Navbar = () => {
             <li className="nav-item active">
               <Link
                 className={`nav-link ${pathname === "/" ? "active" : ""}`}
+                aria-current="page"
                 to="/"
               >
                 Home
