@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import noteContext from "../context/noteContext";
 
 const Noteitem = (props) => {
+  const contex = useContext(noteContext);
+  const { deleteNote } = contex;
   const { note } = props;
   return (
     <div className="col-md-3">
@@ -12,6 +15,9 @@ const Noteitem = (props) => {
               <i
                 className="far fa-trash-alt mx-2 my-1"
                 style={{ cursor: "pointer" }}
+                onClick={() => {
+                  deleteNote(note._id);
+                }}
               ></i>
               <i
                 className="far fa-edit mx-2 my-1"

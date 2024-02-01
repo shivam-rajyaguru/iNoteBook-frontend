@@ -122,8 +122,32 @@ const NoteState = (props) => {
   //     });
   //   }, 5000);
   // };
+
+  const addNote = (title, description, tag) => {
+    console.log("Adding note");
+    const note = {
+      _id: "65b9df23cff006cd8ad31f325",
+      user: "65b8b0818478e1e06375f6f6",
+      title: title,
+      description: description,
+      tag: tag,
+      date: "2024-01-31T05:48:19.866Z",
+      __v: 0,
+    };
+    setNotes(notes.concat(note));
+  };
+
+  const deleteNote = (id) => {
+    console.log("deleting note with id id:" + id);
+    const newNote = notes.filter((note) => {
+      return note._id !== id;
+    });
+    setNotes(newNote);
+  };
+
+  const updateNote = () => {};
   return (
-    <NoteContext.Provider value={{ notes, setNotes }}>
+    <NoteContext.Provider value={{ notes, addNote, updateNote, deleteNote }}>
       {props.children}
     </NoteContext.Provider>
   );
