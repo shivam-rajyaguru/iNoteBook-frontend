@@ -4,7 +4,7 @@ import noteContext from "../context/noteContext";
 const Noteitem = (props) => {
   const contex = useContext(noteContext);
   const { deleteNote } = contex;
-  const { note } = props;
+  const { note, updatenote } = props;
   return (
     <div className="col-md-3">
       <div className="card my-2">
@@ -21,6 +21,9 @@ const Noteitem = (props) => {
               ></i>
               <i
                 className="far fa-edit mx-2 my-1"
+                onClick={() => {
+                  updatenote(note);
+                }}
                 style={{ cursor: "pointer" }}
               ></i>
             </div>

@@ -57,6 +57,17 @@ const AddNote = () => {
               Check me out
             </label>
           </div> */}
+          <div className="form-group">
+            <label htmlFor="tag">Tag</label>
+            <input
+              type="text"
+              className="form-control"
+              id="tag"
+              name="tag"
+              placeholder="Enter Tag"
+              onChange={onChange}
+            />
+          </div>
           <button
             type="submit"
             onClick={handleClick}
