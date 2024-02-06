@@ -4,13 +4,14 @@ import Noteitem from "./Noteitem";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, updateNote } = context;
   useEffect(() => {
     getNotes();
     //eslint-disable-next-line
   }, []);
 
   const ref = useRef(null);
+  const refClose = useRef(null);
   const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
 
   const updatenote = (currentNote) => {
@@ -23,7 +24,8 @@ const Notes = () => {
   };
   const handleClick = (e) => {
     console.log("Updating the note...", note);
-    e.preventDefault();
+    updateNote(note.id, note.etitle, note.edescription, note.etag);
+    refClose.current.click();
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -108,6 +110,7 @@ const Notes = () => {
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
+                ref={refClose}
               >
                 Close
               </button>

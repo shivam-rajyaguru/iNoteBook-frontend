@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
-  const host = "http://127.0.0.1:3000";
+  const host = "http://localhost:3000";
 
   const noteInit = [];
   const [notes, setNotes] = useState(noteInit);
@@ -71,29 +71,32 @@ const NoteState = (props) => {
   };
 
   const updateNote = async (id, title, description, tag) => {
-    const response = await fetch(
-      `${host}/api/notes/updatenotes/65b9df23cff006cd8a31f325`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application-json",
-          "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjhiMDgxODQ3OGUxZTA2Mzc1ZjZmNiIsImlhdCI6MTcwNjYwNTI4MH0.yBT0UMjPZ__w1kcdGTvHh5d0dIhLSnSZ24ddGO3W4ws",
-        },
-        body: JSON.stringify({ title, description, tag }),
-      }
-    );
+    const response = await fetch(`${host}/api/notes/updatenotes/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application-json",
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YjhiMDgxODQ3OGUxZTA2Mzc1ZjZmNiIsImlhdCI6MTcwNjYwNTI4MH0.yBT0UMjPZ__w1kcdGTvHh5d0dIhLSnSZ24ddGO3W4ws",
+      },
+      body: JSON.stringify({ title, description, tag }),
+    });
     const json = await response.json();
+    console.log(json);
 
     //logic to edit in client
-    for (let index = 0; index < notes.length; i++) {
-      const element = notes[index];
+
+    const newNote = JSON.parse(JSON.stringify(notes));
+
+    for (let index = 0; index < newNote.length; index++) {
+      const element = newNote[index];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNote[index].title = title;
+        newNote[index].description = description;
+        newNote[index].tag = tag;
+        break;
       }
     }
+    console.log(newNote);
   };
   return (
     <NoteContext.Provider
